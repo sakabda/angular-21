@@ -1,0 +1,40 @@
+<div class="dashboard-wrapper">
+    <div class="top-grid">
+        <mat-card class="stat-card" *ngFor="let s of stats">
+            <div class="value">{{ s.value }}</div>
+            <div class="label">{{ s.label }}</div>
+        </mat-card>
+    </div>
+    <div class="top-grid">
+        <mat-card class="stat-card" *ngFor="let s of stats">
+            <div class="value">{{ s.value }}</div>
+            <div class="label">{{ s.label }}</div>
+        </mat-card>
+    </div>
+
+
+    <div class="charts-row">
+        <mat-card class="chart-card">
+            <h3>User Growth</h3>
+
+            <div class="chart-wrapper">
+                <ngx-charts-line-chart [results]="lineData" [scheme]="colorScheme" [xAxis]="true" [yAxis]="true"
+                    [animations]="true">
+                </ngx-charts-line-chart>
+            </div>
+        </mat-card>
+
+        <mat-card class="chart-card">
+            <h3>Traffic Sources</h3>
+
+            <div class="chart-wrapper">
+                <ngx-charts-bar-vertical [results]="barData" [scheme]="colorScheme" [xAxis]="true" [yAxis]="true"
+                    [animations]="true">
+                </ngx-charts-bar-vertical>
+            </div>
+        </mat-card>
+    </div>
+
+
+
+</div>

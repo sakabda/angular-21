@@ -1,0 +1,51 @@
+// Full-height container
+.layout-container {
+  height: 100vh;
+  display: flex;
+}
+
+// Sidenav styling
+.app-sidenav {
+  width: 220px !important;
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0;
+  overflow: hidden;
+}
+
+// Main area (header + content + footer)
+.main-area {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport */
+  background: #f7f8fb;
+  width: 100%;
+  overflow: hidden; /* prevent extra scroll */
+}
+
+// HEADER (fixed at top inside main-area)
+app-header {
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+// Content area (scrollable section)
+.page-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* only scroll the content */
+  overflow-x: hidden;
+  box-sizing: border-box; /* include padding in height calculation */
+}
+
+// Footer
+app-footer {
+  display: block;
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 10px 20px;
+  text-align: center;
+}

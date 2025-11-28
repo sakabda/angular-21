@@ -1,0 +1,14 @@
+<div class="login-box">
+    <h2>Login</h2>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+
+        <label>Email</label>
+        <input pInputText formControlName="email" class="w-full mb-3" />
+
+        <label>Password</label>
+        <p-password formControlName="password" class="w-full mb-3"></p-password>
+
+        <button pButton label="Login" class="w-full"></button>
+    </form>
+</div>
