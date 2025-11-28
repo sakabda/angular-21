@@ -1,11 +1,137 @@
-.brand {
-  font-weight: 700;
-  padding: 20px 16px;
-  font-size: 18px;
+// Global override - add this at the top of your component styles or in styles.scss
+::ng-deep {
+  .sidebar {
+    * {
+      max-width: 100% !important;
+    }
+    
+    .mat-list-base {
+      padding: 0 !important;
+    }
+    
+    .mat-list-item {
+      width: auto !important;
+    }
+    
+    .mat-list-item-content {
+      padding: 0 16px !important;
+      width: 100% !important;
+    }
+  }
 }
 
-mat-nav-list a.mat-list-item {
-  height: 48px;
-  border-radius: 8px;
-  margin: 6px 8px;
+.sidebar {
+  //width: 240px;
+   min-width: 240px;
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: #1f2937; 
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden; /* Hide all overflow on sidebar */
+
+  .brand {
+    font-weight: 700;
+    font-size: 22px;
+    padding: 24px 16px;
+    color: #1f2937;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  mat-nav-list {
+    flex: 1;
+    padding: 12px 0;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Hide horizontal scroll */
+    overflow-y: auto; /* Allow vertical scroll */
+    width: 100%;
+    max-width: 100%;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
+    }
+
+    a {
+      height: 48px;
+      border-radius: 8px;
+      margin: 4px 12px;
+      padding: 0 16px;
+      color: #1f2937;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+      text-decoration: none;
+      cursor: pointer;
+      overflow: hidden;
+      max-width: calc(100% - 24px);
+
+      mat-icon {
+        margin-right: 12px;
+        color: #6b7280;
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+        line-height: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 15px;
+        flex: 1;
+        min-width: 0;
+      }
+
+      &:hover {
+        background: #eff6ff;
+        color: #2563eb;
+        
+        mat-icon {
+          color: #2563eb;
+        }
+      }
+
+      &.active-link {
+        background: #2563eb;
+        color: #fff;
+
+        mat-icon {
+          color: #fff;
+        }
+
+        &:hover {
+          background: #1d4ed8;
+        }
+      }
+    }
+  }
 }

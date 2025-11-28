@@ -9,9 +9,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
   selector: 'app-dashboard',
   imports: [CommonModule, NgxChartsModule, NgxChartsModule, MatCardModule, MatGridListModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss',
+  styleUrls: ['./dashboard.scss'],
 })
 export class Dashboard {
+  // Chart dimensions
+  chartWidth = 730;
+  chartHeight = 350;
   curve = curveMonotoneX;
   // Summary card stats
   stats = [

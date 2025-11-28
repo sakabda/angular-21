@@ -13,7 +13,10 @@
     <button mat-icon-button aria-label="notifications">
         <mat-icon>notifications</mat-icon>
     </button>
-    <button mat-icon-button aria-label="account">
-        <mat-icon>account_circle</mat-icon>
-    </button>
+    <button mat-icon-button aria-label="account" [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon></button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>My Account</button>
+        <button mat-menu-item>Log out</button>
+    </mat-menu>
+
 </mat-toolbar>

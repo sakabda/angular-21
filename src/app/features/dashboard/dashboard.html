@@ -1,4 +1,5 @@
 <div class="dashboard-wrapper">
+<!-- Top Stat Cards -->
     <div class="top-grid">
         <mat-card class="stat-card" *ngFor="let s of stats">
             <div class="value">{{ s.value }}</div>
@@ -12,29 +13,28 @@
         </mat-card>
     </div>
 
-
+    <!-- Charts Row -->
     <div class="charts-row">
+<!-- User Growth Line Chart -->
         <mat-card class="chart-card">
             <h3>User Growth</h3>
-
             <div class="chart-wrapper">
                 <ngx-charts-line-chart [results]="lineData" [scheme]="colorScheme" [xAxis]="true" [yAxis]="true"
-                    [animations]="true">
+                    [animations]="true" [view]="[chartWidth, chartHeight]">
                 </ngx-charts-line-chart>
             </div>
         </mat-card>
 
+        <!-- Traffic Sources Bar Chart -->
         <mat-card class="chart-card">
             <h3>Traffic Sources</h3>
-
             <div class="chart-wrapper">
                 <ngx-charts-bar-vertical [results]="barData" [scheme]="colorScheme" [xAxis]="true" [yAxis]="true"
-                    [animations]="true">
+                    [animations]="true" [view]="[chartWidth, chartHeight]">
                 </ngx-charts-bar-vertical>
             </div>
         </mat-card>
+
     </div>
-
-
 
 </div>

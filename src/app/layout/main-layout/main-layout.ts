@@ -28,7 +28,7 @@ import { Footer } from '../../shared/components/footer/footer';
     Footer,
   ],
   templateUrl: './main-layout.html',
-  styleUrl: './main-layout.scss',
+  styleUrls: ['./main-layout.scss'],
 })
 export class MainLayout {
   collapsed = false;
