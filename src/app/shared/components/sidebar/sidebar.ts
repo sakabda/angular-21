@@ -13,8 +13,8 @@ import { RouterModule } from '@angular/router';
 })
 export class Sidebar {
   menuItems = [
-    { label: 'Dashboard', icon: 'pi pi-home', route: '/' },
-    { label: 'Vendors', icon: 'pi pi-users', route: '/vendors' },
-    { label: 'Settings', icon: 'pi pi-cog', route: '/settings' },
+    { label: 'Dashboard', icon: 'dashboard', route: '/' },
+    { label: 'User', icon: 'group', route: '/users' },
+    // { label: 'Settings', icon: 'pi pi-cog', route: '/settings' },
   ];
 }

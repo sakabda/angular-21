@@ -1,20 +1,16 @@
+
+
 <div class="sidebar">
     <div class="brand">
         My App
     </div>
 
     <mat-nav-list>
-        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
-            <mat-icon>dashboard</mat-icon>
-            <span>Dashboard</span>
+        @for (item of menuItems; track item.route) {
+        <a mat-list-item [routerLink]="item.route" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
         </a>
-        <a mat-list-item routerLink="/users" routerLinkActive="active-link">
-            <mat-icon>group</mat-icon>
-            <span>Users</span>
-        </a>
-        <a mat-list-item routerLink="/settings" routerLinkActive="active-link">
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
-        </a>
+        }
         </mat-nav-list>
 </div>
