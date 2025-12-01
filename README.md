@@ -1,6 +1,9 @@
-# MyAngular21
+# Angular21
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+
+## About
+basic set up with angular material ui user crud operation with fake api.
 
 ## Development server
 
@@ -44,19 +47,6 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
-## Theme support
-
-This app supports a light and a dark theme. The current theme is persisted in localStorage.
-
-- Toggle the theme using the icon in the top-right header.
-- The app will also initialize to the user's system preference if no choice was saved.
-
-Material components
-
-- Angular Material component colors are driven by the Material system CSS variables
-	(for example `--mat-sys-surface`). The dark and light theme body classes set
-	overrides for a handful of system variables so Material components switch to
-	appropriate palettes when the app theme changes.
 
 ## Running end-to-end tests
 
