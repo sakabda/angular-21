@@ -37,14 +37,14 @@
                 <ng-container matColumnDef="gender">
                     <th mat-header-cell *matHeaderCellDef>Gender</th>
                     <td mat-cell *matCellDef="let u">
-                        {{u.gender}}
+                        {{u.gender | titlecase}}
                     </td>
                 </ng-container>
                 <!-- Birth -->
                 <ng-container matColumnDef="birth">
                     <th mat-header-cell *matHeaderCellDef>Birth Date</th>
                     <td mat-cell *matCellDef="let u">
-                        {{u.birthDate}}
+                        {{u.birthDate | date:'mediumDate'}}
                     </td>
                 </ng-container>
                 <!-- Actions -->

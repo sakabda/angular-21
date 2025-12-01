@@ -10,6 +10,7 @@ import { UsersStore } from '../data/users.store';
 import { AddUpdateUser } from '../add-update-user/add-update-user';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users',
@@ -32,7 +33,7 @@ export class Users {
   getInitials(user: any) {
     return user.firstName + user.lastName;
   }
-  constructor(public store: UsersStore, private dialog: MatDialog) {}
+  constructor(public store: UsersStore, private dialog: MatDialog, private snack: MatSnackBar) {}
   ngOnInit() {
     console.log('Users component initialized');
     this.store.loadUsers();
@@ -45,13 +46,35 @@ export class Users {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('add dialog closed with result:', result);
+      if (!result) return;
 
-      if (result) {
-        this.store.createUser(result).subscribe(() => {
-          this.store.loadUsers(); // refresh table data
-        });
-      }
+      this.store.createUser(result).subscribe({
+        next: () => {
+          this.store.loadUsers();
+          this.snack.open('User created successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['snack-success'],
+          });
+        },
+        error: (err) => {
+          console.error('API Error:', err);
+
+          // When API returns a known message (e.g. user exists)
+          if (err?.error?.message) {
+            this.snack.open(err.error.message, 'Close', {
+              duration: 4000,
+              panelClass: ['snack-error'],
+            });
+            return;
+          }
+
+          // When server completely fails (500, network error, etc.)
+          this.snack.open('Something went wrong! Please try again.', 'Close', {
+            duration: 4000,
+            panelClass: ['snack-error'],
+          });
+        },
+      });
     });
   }
 
@@ -64,12 +87,33 @@ export class Users {
     });
 
     dialogRef.afterClosed().subscribe((res: any) => {
-      console.log('Edit dialog closed with result:', res);
-      if (res) {
-        this.store.updateUser(user.id, res).subscribe(() => {
+      if (!res) return;
+
+      this.store.updateUser(user.id, res).subscribe({
+        next: () => {
           this.store.loadUsers();
-        });
-      }
+          this.snack.open('User updated successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['snack-success'],
+          });
+        },
+        error: (err) => {
+          console.error('Update API Error:', err);
+
+          if (err?.error?.message) {
+            this.snack.open(err.error.message, 'Close', {
+              duration: 4000,
+              panelClass: ['snack-error'],
+            });
+            return;
+          }
+
+          this.snack.open('Something went wrong! Please try again.', 'Close', {
+            duration: 4000,
+            panelClass: ['snack-error'],
+          });
+        },
+      });
     });
   }
 
@@ -81,11 +125,46 @@ export class Users {
     });
 
     dialogRef.afterClosed().subscribe((confirmed) => {
-      if (confirmed) {
-        this.store.deleteUser(user.id).subscribe(() => {
+      if (!confirmed) return;
+
+      this.store.deleteUser(user.id).subscribe({
+        next: () => {
           this.store.loadUsers();
-        });
-      }
+          this.snack.open('User deleted successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['snack-success'],
+          });
+        },
+        error: (err) => {
+          console.error('Delete API Error:', err);
+
+          if (err?.error?.message) {
+            this.snack.open(err.error.message, 'Close', {
+              duration: 4000,
+              panelClass: ['snack-error'],
+            });
+            return;
+          }
+
+          this.snack.open('Failed to delete user! Please try again.', 'Close', {
+            duration: 4000,
+            panelClass: ['snack-error'],
+          });
+        },
+      });
+    });
+  }
+
+  showSuccess() {
+    this.snack.open('User created successfully!', 'Close', {
+      duration: 3000,
+      panelClass: ['snack-success'],
+    });
+  }
+  showError() {
+    this.snack.open('Something went wrong!', 'Close', {
+      duration: 3000,
+      panelClass: ['snack-error'],
     });
   }
 }

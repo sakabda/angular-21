@@ -36,3 +36,14 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.snack-success {
+  background: #4caf50 !important;
+  color: white !important;
+  font-size: 15px;
+}
+
+.snack-error {
+  background: #f44336 !important;
+  color: white !important;
+  font-size: 15px;
+}

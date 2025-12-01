@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule, ScaleType, Color } from '@swimlane/ngx-charts';
-import { CurveFactory, curveMonotoneX } from 'd3-shape';
+import { curveMonotoneX } from 'd3-shape';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -48,7 +48,6 @@ export class Dashboard {
     { name: 'LinkedIn', value: 140 },
   ];
 
-  // ✅ FIXED
   colorScheme: Color = {
     name: 'custom',
     selectable: true,
