@@ -1,0 +1,69 @@
+.dialog-container {
+    text-align: center;
+    padding: 22px 24px;
+    animation: fadeIn 0.3s ease;
+
+    h2 {
+        margin: 8px 0 5px;
+        font-weight: 600;
+        font-size: 22px;
+    }
+
+    p {
+        color: #555;
+        font-size: 15px;
+    }
+
+    .warning-icon {
+        font-size: 54px;
+        color: #f44336;
+        margin-bottom: 10px;
+        animation: pulseRed 1s infinite ease-in-out;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 22px;
+    }
+
+    .delete-btn {
+        transition: 0.2s ease;
+        transform: translateY(0);
+
+        &:hover {
+            background-color: #d32f2f !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(244, 67, 54, 0.35);
+        }
+    }
+}
+
+/* Soft fade */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Warning icon pulse animation */
+@keyframes pulseRed {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

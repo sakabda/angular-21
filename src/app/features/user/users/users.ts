@@ -6,21 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
-interface User {
-  id: string;
-  name: string;
-  coin: string;
-  date: string;
-  process: 'Buy' | 'Sell';
-  amount: string;
-}
-
-interface Wallet {
-  coin: string;
-  percent: number;
-  value: string;
-}
+import { UsersStore } from '../data/users.store';
+import { AddUpdateUser } from '../add-update-user/add-update-user';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-users',
@@ -38,70 +27,65 @@ interface Wallet {
   styleUrls: ['./users.scss'],
 })
 export class Users {
-  users: User[] = [
-    {
-      id: '#1254',
-      name: 'Amy Yelsner',
-      coin: 'ETH',
-      date: 'May 5th',
-      process: 'Buy',
-      amount: '3.005 BTC',
-    },
-    {
-      id: '#2355',
-      name: 'Anna Fali',
-      coin: 'BTC',
-      date: 'Mar 17th',
-      process: 'Buy',
-      amount: '0.050 ETH',
-    },
-    {
-      id: '#1235',
-      name: 'Stepen Shaw',
-      coin: 'ETH',
-      date: 'May 24th',
-      process: 'Sell',
-      amount: '3.050 BTC',
-    },
-    {
-      id: '#2355',
-      name: 'Anna Fali',
-      coin: 'BTC',
-      date: 'Mar 17th',
-      process: 'Sell',
-      amount: '0.050 ETH',
-    },
-    {
-      id: '#2355',
-      name: 'Anna Fali',
-      coin: 'BTC',
-      date: 'Mar 17th',
-      process: 'Sell',
-      amount: '0.050 ETH',
-    },
-  ];
+  displayedColumns = ['avatar', 'name', 'email', 'gender', 'birth', 'actions'];
 
-  displayedColumns: string[] = ['id', 'name', 'coin', 'date', 'process', 'amount'];
+  getInitials(user: any) {
+    return user.firstName + user.lastName;
+  }
+  constructor(public store: UsersStore, private dialog: MatDialog) {}
+  ngOnInit() {
+    console.log('Users component initialized');
+    this.store.loadUsers();
+  }
+  openAdd() {
+    const dialogRef = this.dialog.open(AddUpdateUser, {
+      width: '620px',
+      disableClose: true,
+      panelClass: 'dialog-panel',
+    });
 
-  addUser() {
-    console.log('Add user clicked');
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('add dialog closed with result:', result);
+
+      if (result) {
+        this.store.createUser(result).subscribe(() => {
+          this.store.loadUsers(); // refresh table data
+        });
+      }
+    });
   }
-  getInitials(name: string) {
-    if (!name) return '';
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('');
+
+  openEdit(user: any) {
+    const dialogRef = this.dialog.open(AddUpdateUser, {
+      width: '420px',
+      disableClose: true,
+      panelClass: 'dialog-panel',
+      data: user,
+    });
+
+    dialogRef.afterClosed().subscribe((res: any) => {
+      console.log('Edit dialog closed with result:', res);
+      if (res) {
+        this.store.updateUser(user.id, res).subscribe(() => {
+          this.store.loadUsers();
+        });
+      }
+    });
   }
-  getColor(coin: string) {
-    const colors: any = {
-      BTC: '#fbbf24',
-      ETH: '#374151',
-      GBP: '#10b981',
-      EUR: '#84cc16',
-      USD: '#06b6d4',
-      XAU: '#fbbf24',
-    };
-    return colors[coin] || '#d1d5db';
+
+  openDelete(user: any) {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '360px',
+      disableClose: true,
+      data: { name: user.firstName },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.store.deleteUser(user.id).subscribe(() => {
+          this.store.loadUsers();
+        });
+      }
+    });
   }
 }

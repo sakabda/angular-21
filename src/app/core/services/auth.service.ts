@@ -17,15 +17,14 @@ export class AuthService {
   login(email: string, password: string): boolean {
     // Simulate API call - Replace with actual HTTP request
     if (email && password) {
-      const user: User = {
-        id: '1',
-        email: email,
-        name: 'John Doe',
-        role: 'admin',
-      };
+      // const user: User = {
+      //   id: '1',
+      //   email: email,
+      //   role: 'admin',
+      // };
 
-      this.currentUserSignal.set(user);
-      localStorage.setItem('currentUser', JSON.stringify(user));
+      // this.currentUserSignal.set(user);
+      //localStorage.setItem('currentUser', JSON.stringify(user));
       return true;
     }
     return false;

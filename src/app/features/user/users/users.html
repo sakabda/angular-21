@@ -2,69 +2,73 @@
     <div class="transactions">
         <div class="header">
             <h3>User</h3>
-            <button mat-flat-button color="primary" (click)="addUser()">
+            <button mat-flat-button color="primary" (click)="openAdd()">
                 <mat-icon>person_add</mat-icon> Add User
             </button>
         </div>
 
         <mat-card>
-            <table mat-table [dataSource]="users" class="mat-elevation-z1">
+            <table mat-table [dataSource]="store.users()" class="mat-elevation-z1">
 
-                <!-- ID Column -->
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Id </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                <!-- Avatar -->
+                <ng-container matColumnDef="avatar">
+                    <th mat-header-cell *matHeaderCellDef>Avatar</th>
+                    <td mat-cell *matCellDef="let u">
+                        <img [src]="u.image" class="avatar">
+                    </td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef> Name </th>
                     <td mat-cell *matCellDef="let element">
-                        <span class="avatar">{{ getInitials(element.name) }}</span>
-                        {{element.name}}
+                        {{ element.firstName }} {{ element.lastName }}
+                    </td>
+                </ng-container>
+                <!-- Email -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef>Email</th>
+                    <td mat-cell *matCellDef="let u">
+                        {{u.email}}
                     </td>
                 </ng-container>
 
-                <!-- Coin Column -->
-                <ng-container matColumnDef="coin">
-                    <th mat-header-cell *matHeaderCellDef> Coin </th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-icon>{{ element.coin === 'BTC' ? 'currency_bitcoin' : 'currency_bitcoin' }}</mat-icon>
-                        {{element.coin}}
+                <!-- Gender -->
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef>Gender</th>
+                    <td mat-cell *matCellDef="let u">
+                        {{u.gender}}
                     </td>
                 </ng-container>
-
-                <!-- Date Column -->
-                <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef> Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-                </ng-container>
-
-                <!-- Process Column -->
-                <ng-container matColumnDef="process">
-                    <th mat-header-cell *matHeaderCellDef> Process </th>
-                    <td mat-cell *matCellDef="let element">
-                        <span class="process" [ngClass]="element.process.toLowerCase()">{{element.process}}</span>
+                <!-- Birth -->
+                <ng-container matColumnDef="birth">
+                    <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+                    <td mat-cell *matCellDef="let u">
+                        {{u.birthDate}}
                     </td>
                 </ng-container>
-
-                <!-- Amount Column -->
-                <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef> Amount </th>
-                    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                <!-- Actions -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let u">
+                        <button mat-icon-button color="primary" (click)="openEdit(u)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="openDelete(u)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
                 </ng-container>
-
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-            <div class="pagination">
-                <span>Showing 1 to 5 of 10 entries</span>
-                <button mat-icon-button><mat-icon>chevron_left</mat-icon></button>
-                <button mat-icon-button class="active">1</button>
-                <button mat-icon-button>2</button>
-                <button mat-icon-button><mat-icon>chevron_right</mat-icon></button>
-            </div>
+            <!-- Pagination -->
+            
+            <mat-paginator [length]="store.total()" [pageSize]="store.limit()" [pageIndex]="store.skip() / store.limit()"
+                [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons (page)="store.setPage($event)">
+            </mat-paginator>
+
         </mat-card>
     </div>
 

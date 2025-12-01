@@ -1,8 +1,12 @@
 // src/app/core/models/user.model.ts
 export interface User {
-  id: string;
+  id: number;
+  avatar: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  name: string;
+  phone: string;
   role: string;
-  avatar?: string;
+  gender: string;
+  birthDate: string;
 }

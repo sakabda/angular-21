@@ -1,0 +1,41 @@
+<div class="modal-container">
+    <h2 class="modal-title">{{ isEdit() ? 'Update User' : 'Add User' }}</h2>
+
+    <form class="form">
+
+
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" [field]="userForm.firstName" placeholder="Enter name" />
+            @if(firstNameError()) {
+            <span class="error">{{ firstNameError() }}</span>
+
+            }
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" [field]="userForm.lastName" placeholder="Enter name" />
+            @if(lastNameError()) {
+            <span class="error">{{ lastNameError() }}</span>
+
+            }
+        </div>
+
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" [field]="userForm.email" placeholder="Enter email" />
+            @if(emailError()) {
+            <span class="error">{{ emailError() }}</span>
+
+            }
+        </div>
+
+        <div class="btn-row">
+            <button type="button" class="cancel" (click)="close()">Cancel</button>
+            <button type="submit" class="save" (click)="save($event)">
+                {{ isEdit() ? 'Update' : 'Save' }}
+            </button>
+        </div>
+    </form>
+</div>
