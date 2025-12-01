@@ -6,15 +6,16 @@ import {
   MatDialogActions,
   MatDialogContent,
 } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { form, Field, required, email } from '@angular/forms/signals';
 import { User } from '../../../core/models/user.model';
-import { UsersStore } from '../../user/data/users.store';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-add-update-user',
   standalone: true,
-  imports: [CommonModule, Field],
+  imports: [CommonModule, Field, MatSelectModule, MatFormFieldModule],
   templateUrl: './add-update-user.html',
   styleUrls: ['./add-update-user.scss'],
 })
@@ -35,7 +36,7 @@ export class AddUpdateUser {
     email: '',
     // phone: '',
     // role: '',
-    // gender: '',
+    gender: '',
     // birthDate: '',
   });
 
@@ -52,7 +53,7 @@ export class AddUpdateUser {
     // required(s.phone, { message: 'Phone is required' });
     // required(s.role, { message: 'Role is required' });
 
-    // required(s.gender, { message: 'Gender is required' });
+    required(s.gender, { message: 'Gender is required' });
     // required(s.birthDate, { message: 'Birth Date is required' });
   });
 
@@ -70,7 +71,7 @@ export class AddUpdateUser {
   emailError = this.error(this.userForm.email);
   // phoneError = this.error(this.userForm.phone);
   // roleError = this.error(this.userForm.role);
-  // genderError = this.error(this.userForm.gender);
+  genderError = this.error(this.userForm.gender);
   // birthDateError = this.error(this.userForm.birthDate);
 
   // -----------------------------------------------------
@@ -78,8 +79,7 @@ export class AddUpdateUser {
   // -----------------------------------------------------
   constructor(
     private dialogRef: MatDialogRef<AddUpdateUser>,
-    @Inject(MAT_DIALOG_DATA) public data: User | null,
-    private store: UsersStore
+    @Inject(MAT_DIALOG_DATA) public data: User | null
   ) {
     if (data) {
       this.isEdit.set(true);
